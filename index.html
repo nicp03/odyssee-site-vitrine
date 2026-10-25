@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PROJET ODYSSÉE — Acte I, de la Terre à la Mer | MSÉ</title>
+    <meta name="description" content="PROJET ODYSSÉE explore BLUE, une intelligence artificielle centrale en développement, et le concept de Maison Sous-Marine Écologique (MSÉ). Questions du public et partenaires techniques bienvenus." />
+    <style>
+      :root {
+        --bg: #060d1a;
+        --bg-soft: #0a1628;
+        --panel: #0e1e35;
+        --line: #1b3a5c;
+        --text: #dce8f5;
+        --muted: #8aa3c0;
+        --blue: #3aa0ff;
+        --cyan: #47e0d0;
+        --orange: #ff9a3c;
+        --green: #4ade80;
+        --gold: #ffd166;
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(1200px 600px at 80% -10%, #0d2b4d 0%, transparent 60%),
+          radial-gradient(900px 500px at 10% 110%, #0a2338 0%, transparent 55%),
+          var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+      header {
+        padding: 54px 24px 58px;
+        text-align: center;
+        background:
+          radial-gradient(600px 220px at 50% 0%, rgba(58,160,255,.18), transparent 70%);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(2.1rem, 6vw, 3.4rem);
+        letter-spacing: .18em;
+        color: #fff;
+      }
+      h1 span { color: var(--cyan); }
+      .sub {
+        margin: 10px 0 0;
+        color: var(--gold);
+        letter-spacing: .22em;
+        font-size: .95rem;
+        text-transform: uppercase;
+      }
+      .tagline {
+        margin: 16px auto 0;
+        max-width: 720px;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+      .badges { margin-top: 24px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+      .badge {
+        padding: 6px 16px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--cyan);
+        font-size: .78rem;
+        letter-spacing: .15em;
+        text-transform: uppercase;
+      }
+      .topnav { display:flex; justify-content:center; flex-wrap:wrap; gap:8px 20px; margin:0 auto 28px; max-width:1000px; padding:0 18px; }
+      .topnav a { color:var(--muted); text-decoration:none; font-size:.9rem; }
+      .topnav a:hover, .topnav a:focus { color:var(--cyan); }
+      .hero-actions { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin-top:26px; }
+      .button-link { display:inline-block; padding:12px 20px; border-radius:999px; text-decoration:none; font-weight:700; font-size:.9rem; }
+      .button-primary { color:#04121f; background:linear-gradient(90deg,var(--blue),var(--cyan)); }
+      .button-secondary { color:var(--text); border:1px solid var(--line); background:rgba(14,30,53,.65); }
+      .status-note { max-width:900px; margin:28px auto 0; padding:14px 18px; text-align:left; border:1px solid #735a2c; border-radius:12px; background:rgba(255,209,102,.07); color:#e8d7ae; font-size:.9rem; }
+      .eyebrow { color:var(--cyan); text-transform:uppercase; letter-spacing:.14em; font-size:.75rem; font-weight:700; }
+      .section-actions { margin-top:20px; }
+      .form-notice { padding:12px 14px; border-radius:10px; background:rgba(255,209,102,.08); border:1px solid #735a2c; color:#e8d7ae; font-size:.86rem; }
+      main { max-width: 1080px; margin: 0 auto; padding: 0 24px 80px; }
+      section { margin-top: 68px; }
+      h2 {
+        font-size: 1.5rem;
+        color: #fff;
+        border-left: 4px solid var(--cyan);
+        padding-left: 14px;
+        margin: 0 0 10px;
+      }
+      .lead { color: var(--muted); margin: 0 0 24px; max-width: 760px; }
+      .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 22px;
+      }
+      .card h3 { margin: 0 0 8px; color: var(--blue); font-size: 1.05rem; }
+      .card p { margin: 0; color: var(--muted); font-size: .93rem; }
+      .models { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+      .model {
+        background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      .model::before {
+        content: "";
+        position: absolute; inset: 0 0 auto 0; height: 3px;
+        background: var(--accent, var(--blue));
+      }
+      .model h3 { margin: 0; color: #fff; }
+      .model .type { color: var(--accent, var(--blue)); font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; }
+      .model .block { margin-top: 12px; }
+      .model .k { font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: #5f7a99; }
+      .model p { margin: 3px 0 0; color: var(--muted); font-size: .9rem; }
+      .ia-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+      .ia {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .ia::before {
+        content: "";
+        position: absolute; inset: 0 0 auto 0; height: 3px;
+        background: var(--accent, var(--blue));
+      }
+      .ia h3 { margin: 0 0 2px; color: #fff; }
+      .ia .role { color: var(--accent, var(--blue)); font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
+      .ia p { margin: 10px 0 0; color: var(--muted); font-size: .92rem; }
+      .ia .voice { margin-top: 10px; font-size: .78rem; color: #5f7a99; }
+      ul.feats { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+      ul.feats li {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 14px 18px;
+      }
+      ul.feats b { color: var(--cyan); }
+      ul.feats span { color: var(--muted); font-size: .93rem; }
+      table.cmp {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        overflow: hidden;
+        font-size: .88rem;
+      }
+      table.cmp th, table.cmp td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--line); }
+      table.cmp th { color: var(--cyan); background: rgba(58,160,255,.08); font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; }
+      table.cmp td:first-child { color: #fff; font-weight: 600; }
+      table.cmp td { color: var(--muted); }
+      .ok { color: var(--green); font-weight: 700; }
+      .no { color: #e06c75; font-weight: 700; }
+      .timeline { border-left: 2px solid var(--line); margin-left: 8px; padding-left: 24px; display: grid; gap: 22px; }
+      .step { position: relative; }
+      .step::before {
+        content: "✓";
+        position: absolute; left: -35px; top: 0;
+        width: 20px; height: 20px; border-radius: 50%;
+        background: var(--green); color: #052012;
+        font-size: .7rem; display: flex; align-items: center; justify-content: center;
+      }
+      .step.now::before { content: "→"; background: var(--cyan); color: #062733; }
+      .step.next::before { content: "•"; background: var(--orange); color: #33200a; }
+      .step h3 { margin: 0; color: #fff; font-size: 1rem; }
+      .step p { margin: 4px 0 0; color: var(--muted); font-size: .92rem; }
+      .step .date { font-size: .75rem; color: #5f7a99; }
+      .quote {
+        text-align: center;
+        color: var(--gold);
+        font-style: italic;
+        font-size: 1.1rem;
+        margin: 48px auto 0;
+        max-width: 640px;
+      }
+      .fin {
+        background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 24px;
+        display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;
+      }
+      .fin h3 { margin: 0; color: #fff; font-size: 1.1rem; }
+      .fin p { margin: 4px 0 0; color: var(--muted); font-size: .9rem; }
+      form.contact {
+        width: 100%;
+        display: grid;
+        gap: 14px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 24px;
+      }
+      form.contact label { display: block; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--cyan); margin-bottom: 6px; }
+      form.contact input, form.contact textarea {
+        width: 100%;
+        background: var(--bg-soft);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 12px 14px;
+        color: var(--text);
+        font: inherit;
+        font-size: .95rem;
+      }
+      form.contact input:focus, form.contact textarea:focus { outline: 2px solid var(--cyan); border-color: transparent; }
+      form.contact select {
+        width: 100%;
+        background: var(--bg-soft);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 12px 14px;
+        color: var(--text);
+        font: inherit;
+        font-size: .95rem;
+      }
+      form.contact select:focus { outline: 2px solid var(--cyan); border-color: transparent; }
+      form.contact textarea { min-height: 120px; resize: vertical; }
+      form.contact button {
+        justify-self: start;
+        padding: 12px 32px;
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--blue), var(--cyan));
+        color: #04121f;
+        font-weight: 700;
+        font-size: .95rem;
+        letter-spacing: .05em;
+        cursor: pointer;
+      }
+      form.contact button:hover { filter: brightness(1.15); }
+      .form-note { font-size: .78rem; color: #5f7a99; }
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 28px 24px 48px;
+        text-align: center;
+        color: #5f7a99;
+        font-size: .85rem;
+      }
+      @media (max-width: 640px) {
+        header { padding-top: 40px; }
+        .fin { flex-direction: column; align-items: flex-start; }
+        main { padding-left:16px; padding-right:16px; }
+        h1 { letter-spacing:.1em; }
+        .topnav { gap:10px 14px; }
+        table.cmp { display:block; overflow-x:auto; white-space:nowrap; }
+      }
+      @media (prefers-reduced-motion: no-preference) { html { scroll-behavior:smooth; } }
+    </style>
+  </head>
+  <body>
+    <header id="accueil">
+      <p class="eyebrow">PROJET ODYSSÉE · Acte I — De la Terre à la Mer</p>
+      <h1>ODYS<span>SEE</span></h1>
+      <p class="sub">MSÉ · Maison Sous-Marine Écologique</p>
+      <p class="tagline">
+        Explorer de nouvelles façons d’habiter les environnements marins, avec BLUE — une intelligence artificielle centrale en cours de développement — au cœur de la structure envisagée.
+      </p>
+      <div class="badges">
+        <div class="badge">Vision &amp; concept</div>
+        <div class="badge">Prototype logiciel</div>
+        <div class="badge">Faisabilité à étudier</div>
+      </div>
+      <div class="hero-actions">
+        <a class="button-link button-primary" href="#contact">Poser une question</a>
+        <a class="button-link button-secondary" href="#partenaires">Proposer une collaboration</a>
+        <a class="button-link button-secondary" href="#avancement">Découvrir l’avancement</a>
+      </div>
+      <div class="status-note">
+        <strong>Où en est ODYSSÉE ?</strong> Le logiciel est en cours de développement. La MSÉ est actuellement un concept : aucune structure physique n’a été construite et sa faisabilité, sa sécurité, ses performances et son cadre réglementaire restent à étudier avec des spécialistes.
+      </div>
+    </header>
+    <nav class="topnav" aria-label="Navigation principale">
+      <a href="#vision">La vision</a>
+      <a href="#concept">Le concept MSÉ</a>
+      <a href="#logiciel">Le logiciel</a>
+      <a href="#blue">BLUE · L’IA centrale</a>
+      <a href="#avancement">Avancement</a>
+      <a href="#partenaires">Collaborer</a>
+      <a href="#contact">Poser une question</a>
+    </nav>
+
+    <main>
+      <section id="vision">
+        <h2>La vision : autonomie, durabilité, liberté</h2>
+        <p class="lead">
+          La MSÉ est un concept d’habitat marin pensé autour de la résilience, de la mobilité et de la qualité de vie. L’ambition est d’explorer ce qui serait nécessaire pour rendre un tel habitat viable, sûr et aussi sobre que possible. Ces objectifs ne constituent pas encore des performances démontrées.
+        </p>
+        <div class="card" id="logiciel" style="max-width: 860px;">
+          <h3>🧪 Le logiciel : première étape concrète</h3>
+          <p>ODYSSÉE comprend un <strong style="color:#dce8f5;">prototype logiciel</strong> développé avec Python et Streamlit. Il explore des parcours d’interaction autour d’une IA nommée BLUE, de ses différentes facettes fonctionnelles, d’interfaces vocales et de procédures simulées. Il s’agit d’une seule intelligence centrale en cours de développement, et non de plusieurs IA indépendantes. Cette maquette ne démontre pas, à elle seule, la sécurité ni la faisabilité de l’habitat physique.</p>
+        </div>
+        <div class="grid3" style="margin-top:18px;">
+          <div class="card">
+            <h3>🏗️ Phase 1 — Terre</h3>
+            <p>Étudier le concept, préciser les besoins et développer le logiciel. La structure, la flottabilité, le pilotage réel et l’accessibilité devront faire l’objet d’études et de validations spécifiques.</p>
+          </div>
+          <div class="card">
+            <h3>🌊 Stratégie d'expansion — Blue City</h3>
+            <p>Vision à long terme : explorer la possibilité d’unités modulaires et d’infrastructures partagées. Cette perspective dépendra des résultats des études préalables.</p>
+          </div>
+          <div class="card">
+            <h3>🚀 Phase 2 — L'ultime frontière</h3>
+            <p>Une perspective exploratoire à long terme, qui ne fait pas partie des objectifs techniques immédiats.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="concept">
+        <h2>Quatre configurations conceptuelles</h2>
+        <p class="lead">Guardian, Voyager, Sentinel et Apex représentent des pistes de conception. Leur pertinence, leurs limites et leur faisabilité restent à évaluer ; aucune capacité de protection n’est garantie à ce stade.</p>
+        <div class="models">
+          <div class="model" style="--accent: #3aa0ff;">
+            <h3>MSÉ Guardian</h3>
+            <div class="type">Protection côtière</div>
+            <div class="block"><div class="k">La menace</div>
+            <p>Inondations, crues soudaines, montée permanente des eaux.</p></div>
+            <div class="block"><div class="k">La solution</div>
+            <p>Explorer une enveloppe étanche et un système de pilotis réglables. La résistance, l’étanchéité et les capacités de mise en sécurité restent à valider.</p></div>
+            <div class="block"><div class="k">Le profil</div>
+            <p>Littoraux, deltas, zones à risque d'inondation.</p></div>
+          </div>
+          <div class="model" style="--accent: #ff9a3c;">
+            <h3>MSÉ Voyager</h3>
+            <div class="type">Esquive active</div>
+            <div class="block"><div class="k">La menace</div>
+            <p>Tempêtes violentes, ouragans et typhons prévisibles.</p></div>
+            <div class="block"><div class="k">La solution</div>
+            <p>Étudier les options de propulsion, la stabilité, les conditions de navigation et les limites d’exploitation en météo dégradée.</p></div>
+            <div class="block"><div class="k">Le profil</div>
+            <p>Régions tropicales et zones cycloniques.</p></div>
+          </div>
+          <div class="model" style="--accent: #4ade80;">
+            <h3>MSÉ Sentinel</h3>
+            <div class="type">Immersion de sécurité · hypothèse</div>
+            <div class="block"><div class="k">La menace</div>
+            <p>Tsunamis, vagues scélérates, événements sismiques imprévisibles.</p></div>
+            <div class="block"><div class="k">La solution</div>
+            <p>Étudier un éventuel système d’immersion à faible profondeur, ses contraintes de stabilité, de pression, de remontée et d’évacuation. La profondeur et les délais restent à déterminer par calculs et essais.</p></div>
+            <div class="block"><div class="k">Le profil</div>
+            <p>Côtes des zones à forte activité sismique.</p></div>
+          </div>
+          <div class="model" style="--accent: #ffd166;">
+            <h3>MSÉ Apex</h3>
+            <div class="type">Résilience absolue</div>
+            <div class="block"><div class="k">La menace</div>
+            <p>Tous les scénarios, y compris combinés et extrêmes.</p></div>
+            <div class="block"><div class="k">La solution</div>
+            <p>Hypothèse d’intégration de plusieurs fonctions de protection, sous réserve d’études de sûreté, de faisabilité et de validation indépendante.</p></div>
+            <div class="block"><div class="k">Le profil</div>
+            <p>La tranquillité d'esprit, sans aucun compromis.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="blue">
+        <h2>BLUE : une intelligence centrale, plusieurs facettes</h2>
+        <p class="lead">
+          BLUE est le nom donné à l’intelligence artificielle centrale en cours de développement dans ODYSSÉE. Cette rubrique présente sa place dans le projet et les rôles fonctionnels envisagés autour d’elle.
+        </p>
+        <div class="grid3">
+          <div class="card">
+            <h3>Qui est BLUE ?</h3>
+            <p>BLUE est l’intelligence artificielle développée dans le cadre du projet ODYSSÉE. Elle est envisagée comme le cœur intelligent de la structure, avec pour objectif de coordonner ses différentes fonctions et d’interagir avec son environnement et ses occupants.</p>
+          </div>
+          <div class="card">
+            <h3>Une intelligence, plusieurs facettes</h3>
+            <p>Les profils présentés ne sont pas plusieurs IA indépendantes : ils représentent des facettes fonctionnelles complémentaires d’une même intelligence centrale. Ils permettent d’explorer différents rôles et parcours d’interaction. Le SAOP (Système d’Opérations Autonomes et de Pilotage) désigne l’architecture logicielle envisagée autour de ces fonctions.</p>
+          </div>
+          <div class="card">
+            <h3>Un premier terrain d’exploration : la MSÉ</h3>
+            <p>La Maison Sous-Marine Écologique est le premier concept de structure exploré dans ODYSSÉE. Elle permet d’étudier comment les fonctions envisagées de BLUE pourraient s’intégrer à un habitat destiné au milieu marin.</p>
+          </div>
+        </div>
+        <p class="form-notice" style="margin-top:16px;">Les profils ci-dessous présentent des rôles visés dans le concept. Ils ne constituent pas des systèmes certifiés de commande d’un véhicule réel et ne démontrent pas la sécurité ou la faisabilité de l’habitat physique.</p>
+        <div class="ia-list">
+          <div class="ia" style="--accent: #3aa0ff;">
+            <h3>BLUE</h3>
+            <div class="role">Intelligence centrale · SAOP</div>
+            <p>Interface centrale envisagée pour coordonner les interactions et les demandes utilisateur. Toute commande physique future nécessitera des dispositifs de sécurité indépendants et des validations spécifiques.</p>
+            <div class="voice">Voix : fr-FR Denise</div>
+          </div>
+          <div class="ia" style="--accent: #47e0d0;">
+            <h3>BLUE — Facette GAIA</h3>
+            <div class="role">Administration &amp; flux internes</div>
+            <p>Gestion administrative, manifestes verrouillés, entrées et sorties
+            officielles.</p>
+            <div class="voice">Voix : fr-FR Eloise</div>
+          </div>
+          <div class="ia" style="--accent: #ff9a3c;">
+            <h3>BLUE — Facette ORION</h3>
+            <div class="role">Propulsion &amp; navigation</div>
+            <p>Rôle conceptuel associé à la navigation et aux procédures de déplacement, à préciser avec des spécialistes.</p>
+            <div class="voice">Voix : fr-FR Henri</div>
+          </div>
+          <div class="ia" style="--accent: #4ade80;">
+            <h3>BLUE — Facette AURORA</h3>
+            <div class="role">Sécurité &amp; contrôle des autorisations</div>
+            <p>Rôle envisagé de supervision des autorisations et des procédures critiques. Son efficacité devra être évaluée et ne peut remplacer des protections matérielles indépendantes.</p>
+            <div class="voice">Voix : fr-CH Ariane</div>
+          </div>
+          <div class="ia">
+            <h3>BLUE — Facette ALFRED</h3>
+            <div class="role">Accueil &amp; vie à bord</div>
+            <p>Accueil des résidents, présentation des zones, filtrage des zones
+            interdites aux enfants.</p>
+            <div class="voice">Voix : fr-CA Antoine</div>
+          </div>
+          <div class="ia">
+            <h3>BLUE — Facette CLARA</h3>
+            <div class="role">Bien-être &amp; assistance à bord</div>
+            <p>Concept d’assistance au bien-être et de rappels. Les usages liés à la santé exigeraient une conception, une validation et un cadre adaptés.</p>
+            <div class="voice">Voix : fr-CH Ariane</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Sécurité : des questions à traiter dès l’étude</h2>
+        <ul class="feats">
+          <li><b>🛥️ Submersion contrôlée</b><br />
+          <span>Étudier si une immersion contrôlée est techniquement appropriée et définir les moyens de commande, les redondances, les modes de panne et les conditions d’interdiction.</span></li>
+          <li><b>⬆️ Remontée d'urgence autonome</b><br />
+          <span>Définir et vérifier un scénario de remontée d’urgence, y compris en cas de perte d’énergie, de panne mécanique ou de conditions marines défavorables.</span></li>
+          <li><b>🚁 Zone d'extraction héliportée</b><br />
+          <span>Étudier les voies d’évacuation, les moyens de sauvetage et les scénarios d’urgence réalistes avec les organismes compétents.</span></li>
+          <li><b>🔐 Protection investisseur</b><br />
+          <span>Les mécanismes de sécurité, de cybersécurité et de contrôle d’accès devront être conçus pour ne jamais compromettre le maintien en vie, la possibilité de secours ou la sécurité des occupants.</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Inclusion &amp; accessibilité</h2>
+        <ul class="feats">
+          <li><b>🎙️ Interface « zéro effort »</b><br />
+          <span>Explorer des interfaces vocales complémentaires aux commandes physiques accessibles, sans dépendre d’un seul mode d’interaction.</span></li>
+          <li><b>♿ Hospitalité pour tous</b><br />
+          <span>Les objectifs d’accessibilité devront être examinés avec des spécialistes et confrontés aux contraintes de sécurité, d’espace, d’évacuation et aux normes applicables.</span></li>
+          <li><b>⌚ Bracelets fast-track biométriques</b><br />
+          <span>Le prototype logiciel explore des profils et des parcours d’accès. Toute mise en œuvre réelle devra traiter la protection des données, la fiabilité et les solutions de secours.</span></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Les objectifs que le projet souhaite explorer</h2>
+        <p class="lead">Ce tableau exprime des intentions de conception, pas des avantages mesurés ni des performances comparées à des produits existants.</p>
+        <table class="cmp">
+          <tr><th>Critère</th><th>Maison Sous-Marine (MSÉ)</th><th>Yacht de luxe</th><th>Villa littorale</th></tr>
+          <tr><td>Mobilité</td><td>Objectif : mobilité marine, à étudier</td><td>Mobilité maritime</td><td>Habitat fixe</td></tr>
+          <tr><td>Autonomie</td><td>Objectif : réduire les dépendances, à quantifier</td><td>Dépend des systèmes et infrastructures</td><td>Dépend des réseaux disponibles</td></tr>
+          <tr><td>Impact écologique</td><td>Objectif : limiter les rejets, à démontrer</td><td>Impact variable selon le modèle</td><td>Impact variable selon le modèle</td></tr>
+          <tr><td>Expérience</td><td><span class="ok">✔</span> Immersive et inédite</td><td><span class="ok">✔</span> Surface</td><td><span class="ok">✔</span> Terrestre</td></tr>
+          <tr><td>Confidentialité</td><td><span class="ok">✔</span> Maximale (immersion)</td><td><span class="no">✘</span> Limitée</td><td><span class="no">✘</span> Faible</td></tr>
+          <tr><td>Sécurité</td><td>Exigences à définir et valider</td><td><span class="no">✘</span> Vulnérable</td><td><span class="no">✘</span> Exposée</td></tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>Pistes d’architecture à étudier</h2>
+        <div class="grid3">
+          <div class="card">
+            <h3>⚓ Structure navale</h3>
+            <p>Coque, compartimentage, flottabilité, stabilité, pilotis et éventuels ballasts sont des sujets de conception à examiner avec un bureau d’études naval.</p>
+          </div>
+          <div class="card">
+            <h3>🏠 Vie à bord</h3>
+            <p>Le programme envisagé comprend des espaces de vie familiaux, des zones techniques et des accès adaptés. L’agencement devra être confronté aux volumes, à la stabilité et aux exigences d’évacuation.</p>
+          </div>
+          <div class="card">
+            <h3>🌱 Écosystème zéro rejet</h3>
+            <p>Explorer des solutions de traitement de l’eau, de gestion de l’air, d’énergie et éventuellement de production alimentaire, en quantifiant leurs besoins et leurs rejets.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 id="avancement">Feuille de route : logiciel, études, prototype physique</h2>
+        <div class="timeline">
+          <div class="step">
+            <h3>Moteur vocal v3 consolidé</h3>
+            <p>Travail de développement sur les messages, les voix et la lecture audio. Les performances doivent être mesurées dans un environnement de test documenté.</p>
+            <div class="date">Développement logiciel — état à actualiser</div>
+          </div>
+          <div class="step">
+            <h3>Parcours ODYSSEE nominal complet</h3>
+            <p>Parcours logiciel simulé autour de l’éveil, de l’identification et de la prise de possession. Cela ne signifie pas que des équipements physiques sont intégrés ou validés.</p>
+            <div class="date">Prototype logiciel — état à documenter</div>
+          </div>
+          <div class="step">
+            <h3>Accompagnement vocal général (Phase 3a)</h3>
+            <p>Améliorer progressivement l’accompagnement vocal dans les interfaces logicielles et vérifier son comportement par des tests.</p>
+            <div class="date">Développement logiciel</div>
+          </div>
+          <div class="step now">
+            <h3>Chantier quai — Actes 1 &amp; 2</h3>
+            <p>Poursuivre les parcours de démonstration et documenter les fonctions réellement opérationnelles, leurs limites et les résultats de tests.</p>
+            <div class="date">À confirmer selon l’état actuel du code</div>
+          </div>
+          <div class="step next">
+            <h3>Inclusion : bruits &amp; musique</h3>
+            <p>Améliorer l’accessibilité des interfaces et tester les interactions dans différentes conditions d’usage.</p>
+            <div class="date">À venir</div>
+          </div>
+          <div class="step next">
+            <h3>Financement &amp; construction</h3>
+            <p>Définir d’abord le périmètre des études, les étapes de validation, les coûts et les partenaires nécessaires. Aucun budget de construction ne doit être considéré comme établi avant une estimation technique.</p>
+            <div class="date">Après une première évaluation de faisabilité</div>
+          </div>
+        </div>
+        <p class="quote">« Ce que nous apprenons au fond des mers nous emmènera vers les étoiles. »</p>
+      </section>
+
+      <section id="partenaires">
+        <h2>Collaborer avec ODYSSÉE</h2>
+        <div class="fin">
+          <div>
+            <h3>Un projet porté par son fondateur</h3>
+            <p>ODYSSÉE est aujourd’hui porté par son fondateur, qui développe progressivement son architecture logicielle et sa vision d’un habitat marin autonome et résilient.</p>
+          </div>
+          <div class="card" style="max-width: 860px;">
+            <h3>🤝 Première étape : confronter le concept à la réalité technique</h3>
+            <p>Avant d’envisager la construction, je souhaite recueillir des avis professionnels et identifier les études nécessaires :</p>
+            <p style="color:#dce8f5;">
+              ⚙️ <strong>Ingénierie navale</strong> — coque, stabilité, flottabilité et architecture<br />
+              🌊 <strong>Structures et immersion</strong> — pression, étanchéité et scénarios de sécurité<br />
+              ⚡ <strong>Systèmes embarqués</strong> — énergie, commandes et redondances<br />
+              ♿ <strong>Conception inclusive</strong> — accessibilité, usages et évacuation<br />
+              ⚖️ <strong>Réglementation</strong> — cadre maritime et exigences applicables
+            </p>
+            <p>Je recherche d’abord un échange exploratoire ou une première revue de faisabilité. Une collaboration plus approfondie pourra être discutée ensuite, si le projet présente un intérêt commun.</p>
+          </div>
+        </div>
+        <p class="lead" style="margin: 24px 0 18px;">
+          Vous êtes spécialiste et souhaitez contribuer à l’étude ? Cette rubrique est là pour les propositions de collaboration. Pour une question générale, une idée ou une simple curiosité sur le projet, vous pouvez également nous écrire ici : aucun profil technique n’est nécessaire.
+        </p>
+        <div id="contact"></div>
+        <h2 style="margin-bottom:16px;">Une question, une idée ou un message ?</h2>
+        <p class="lead">Vous pouvez simplement poser une question sur ODYSSÉE, BLUE ou la MSÉ. Les champs Nom et E-mail sont facultatifs ; indiquez votre e-mail uniquement si vous souhaitez pouvoir recevoir une réponse.</p>
+        <form class="contact" id="contact-form">
+          <div>
+            <label for="cf-name">Nom (facultatif)</label>
+            <input id="cf-name" name="name" type="text" placeholder="Votre nom" />
+          </div>
+          <div>
+            <label for="cf-email">E-mail (facultatif, pour recevoir une réponse)</label>
+            <input id="cf-email" name="email" type="email" placeholder="vous@exemple.com" />
+          </div>
+          <div>
+            <label for="cf-role">Objet de votre message</label>
+            <select id="cf-role" name="role" required>
+              <option value="question" selected>💬 Poser une question sur le projet</option>
+              <option value="idee">💡 Partager une idée ou une suggestion</option>
+              <option value="echange">👋 Simplement échanger</option>
+              <optgroup label="Proposer une collaboration">
+                <option value="expert-technique">⚙️ Expert technique — ingénierie marine &amp; architecture sous-marine</option>
+                <option value="partenaire-financier">💰 Partenaire financier — investissement &amp; levée de fonds</option>
+                <option value="expert-juridique">⚖️ Expert juridique — réglementations maritimes</option>
+                <option value="design-inclusif">♿ Expert design inclusif — accessibilité PMR</option>
+              </optgroup>
+              <optgroup label="Autres sujets">
+                <option value="benevolat">🛠️ Proposer des compétences (développement, design, rédaction, communication…)</option>
+                <option value="soutien">🌊 Soutenir le projet</option>
+                <option value="presse">📣 Presse &amp; médias</option>
+              </optgroup>
+            </select>
+          </div>
+          <div>
+            <label for="cf-subject">Sujet (facultatif)</label>
+            <input id="cf-subject" name="subject" type="text" placeholder="Votre question ou le sujet de votre message" />
+          </div>
+          <div>
+            <label for="cf-message">Votre message</label>
+            <textarea id="cf-message" name="message" placeholder="Écrivez votre question, votre idée ou votre message…" required></textarea>
+          </div>
+          <button type="submit">Vérifier mon message</button>
+          <p class="form-notice" id="form-status" role="status">Information : ce formulaire est une maquette et n’envoie pas encore de message. Avant la mise en ligne, il faudra le relier à une adresse de destination ou à un service d’envoi.</p>
+        </form>
+        <script>
+          document.getElementById("contact-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const status = document.getElementById("form-status");
+            status.textContent = "Vérification de démonstration uniquement : votre message n’a pas été envoyé. Le formulaire doit être relié à un service d’envoi avant la mise en ligne.";
+            status.setAttribute("tabindex", "-1");
+            status.focus();
+          });
+        </script>
+      </section>
+    </main>
+
+    <footer>
+      PROJET ODYSSÉE · Acte I — De la Terre à la Mer · MSÉ — Maison Sous-Marine Écologique.<br />
+      État présenté : concept d’habitat et prototype logiciel en développement. Aucune structure physique n’existe à ce stade. Les caractéristiques techniques, les performances, la sécurité et le cadre réglementaire restent à évaluer et à valider par les professionnels compétents.
+    </footer>
+  </body>
+</html>
