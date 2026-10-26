@@ -581,12 +581,78 @@
           <p class="form-notice" id="form-status" role="status">Information : ce formulaire est une maquette et n’envoie pas encore de message. Avant la mise en ligne, il faudra le relier à une adresse de destination ou à un service d’envoi.</p>
         </form>
         <script>
-          document.getElementById("contact-form").addEventListener("submit", function (e) {
+          const formulaire = document.getElementById("contact-form");
+          const statut = document.getElementById("form-status");
+          const bouton = formulaire.querySelector('button[type="submit"]');
+        
+          formulaire.addEventListener("submit", async function (e) {
             e.preventDefault();
-            const status = document.getElementById("form-status");
-            status.textContent = "Vérification de démonstration uniquement : votre message n’a pas été envoyé. Le formulaire doit être relié à un service d’envoi avant la mise en ligne.";
-            status.setAttribute("tabindex", "-1");
-            status.focus();
+        
+            if (!formulaire.reportValidity()) {
+              return;
+            }
+        
+            const nom = document.getElementById("cf-name").value.trim();
+            const email = document.getElementById("cf-email").value.trim();
+            const roleSelect = document.getElementById("cf-role");
+            const objet = roleSelect.options[roleSelect.selectedIndex].text;
+            const sujet = document.getElementById("cf-subject").value.trim();
+            const message = document.getElementById("cf-message").value.trim();
+        
+            const messageComplet = [
+              "Objet de la demande : " + objet,
+              sujet ? "Sujet : " + sujet : "",
+              "",
+              "Message :",
+              message
+            ].filter(Boolean).join("\n");
+        
+            bouton.disabled = true;
+            statut.textContent = "Envoi de votre message en cours…";
+            statut.style.borderColor = "";
+            statut.style.color = "";
+            
+            try {
+              const reponse = await fetch(
+                "https://odyssee-contact.onrender.com/contact",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    nom: nom || "Visiteur ODYSSÉE",
+                    email: email,
+                    message: messageComplet
+                  })
+                }
+              );
+        
+              const resultat = await reponse.json().catch(() => ({}));
+        
+              if (!reponse.ok) {
+                throw new Error(
+                  resultat.erreur || "L'envoi a échoué. Veuillez réessayer."
+                );
+              }
+        
+              statut.textContent =
+                "Votre message a bien été envoyé à l'équipe ODYSSÉE. Merci pour votre intérêt !";
+              statut.style.borderColor = "#4ade80";
+              statut.style.color = "#dce8f5";
+              formulaire.reset();
+        
+            } catch (erreur) {
+              statut.textContent =
+                "Votre message n'a pas pu être envoyé. Vérifiez votre connexion et réessayez. Si le problème persiste, vous pouvez écrire à contact.odyssee.projet@gmail.com.";
+              statut.style.borderColor = "#e06c75";
+              statut.style.color = "#f5c6cb";
+        
+            } finally {
+              bouton.disabled = false;
+              statut.setAttribute("tabindex", "-1");
+              statut.focus();
+            }
           });
         </script>
       </section>
