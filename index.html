@@ -234,6 +234,7 @@
         cursor: pointer;
       }
       form.contact button:hover { filter: brightness(1.15); }
+      form.contact button:disabled { opacity: .65; cursor: wait; }
       .form-note { font-size: .78rem; color: #5f7a99; }
       footer {
         border-top: 1px solid var(--line);
@@ -280,6 +281,7 @@
       <a href="#concept">Le concept MSÉ</a>
       <a href="#logiciel">Le logiciel</a>
       <a href="#blue">BLUE · L’IA centrale</a>
+      <a href="#bvp">BVP · Baies virtuelles</a>
       <a href="#avancement">Avancement</a>
       <a href="#partenaires">Collaborer</a>
       <a href="#contact">Poser une question</a>
@@ -381,12 +383,6 @@
         <div class="ia-list">
           <div class="ia" style="--accent: #3aa0ff;">
             <h3>BLUE</h3>
-            <div class="role">Intelligence centrale · SAOP</div>
-            <p>Interface centrale envisagée pour coordonner les interactions et les demandes utilisateur. Toute commande physique future nécessitera des dispositifs de sécurité indépendants et des validations spécifiques.</p>
-            <div class="voice">Voix : fr-FR Denise</div>
-          </div>
-          <div class="ia" style="--accent: #3aa0ff;">
-            <h3>BLUE</h3>
             <div class="role">Intelligence centrale de l’habitat</div>
             <p>Intelligence centrale envisagée pour analyser les situations, prendre des décisions dans son domaine d’autorité, coordonner les Personae et transmettre des instructions au SAOP. Les commandes critiques doivent rester encadrées par des mécanismes de sécurité indépendants et des procédures validées. BLUE et le SAOP sont encore en développement conceptuel et logiciel ; leur capacité à piloter un habitat réel n’est pas démontrée.</p>
             <div class="voice">Voix : fr-FR Denise</div>
@@ -419,6 +415,33 @@
         </div>
       </section>
 
+      <section id="bvp">
+        <h2>BVP — Baies Virtuelles Panoramiques</h2>
+        <p class="lead">
+          Les BVP sont envisagées pour réduire la sensation de confinement
+          et créer une impression d’ouverture sur l’environnement extérieur,
+          tout en tenant compte des contraintes structurelles d’un habitat marin.
+        </p>
+        <div class="grid3">
+          <div class="card">
+            <h3>À l’intérieur : une ambiance panoramique</h3>
+            <p>Des écrans pourraient présenter des images issues de caméras extérieures afin de proposer une vue de l’environnement marin et d’améliorer l’expérience à bord.</p>
+          </div>
+          <div class="card">
+            <h3>À l’extérieur : une intégration au design</h3>
+            <p>Des éléments décoratifs pourraient donner l’apparence de grandes baies teintées sans nécessiter autant d’ouvertures physiques dans la structure.</p>
+          </div>
+          <div class="card">
+            <h3>Une distinction indispensable</h3>
+            <p>Les images réelles, les représentations générées et les éléments décoratifs devront être distingués. Une ambiance visuelle ne doit pas être confondue avec une information fiable sur les conditions extérieures.</p>
+          </div>
+        </div>
+        <p class="form-notice" style="margin-top:16px;">
+          Le design, les équipements et les effets sur le confort restent à étudier.
+          Les BVP sont une piste de conception, pas une solution validée.
+        </p>
+      </section>
+
       <section>
         <h2>Sécurité : des questions à traiter dès l’étude</h2>
         <ul class="feats">
@@ -430,8 +453,8 @@
           <span>Le concept prévoit que le SAOP conserve des fonctions minimales de sécurité indépendantes de BLUE. Un retour vers le port sécurisé le plus proche pourrait être envisagé si les capacités techniques et les procédures validées le permettent. Si ce retour est impossible ou dangereux, une procédure de sécurité adaptée devra s’appliquer. Cette capacité reste à concevoir et à valider.</span></li>
           <li><b>🚁 Zone d'extraction héliportée</b><br />
           <span>Étudier les voies d’évacuation, les moyens de sauvetage et les scénarios d’urgence réalistes avec les organismes compétents.</span></li>
-          <li><b>🔐 Protection investisseur</b><br />
-          <span>Les mécanismes de sécurité, de cybersécurité et de contrôle d’accès devront être conçus pour ne jamais compromettre le maintien en vie, la possibilité de secours ou la sécurité des occupants.</span></li>
+          <li><b>🔐 Protection de BLUE et du SAOP</b><br />
+          <span>Étudier les mécanismes permettant de prévenir les accès non autorisés, la copie technologique et les tentatives de prise de contrôle, tout en préservant les fonctions vitales et la sécurité des occupants. En cas de menace, l’objectif est d’alerter la base ODYSSÉE et d’appliquer les procédures de sécurité validées. Un retour vers un port sécurisé ne doit être engagé que s’il est jugé sûr et autorisé par ces procédures. Si le retour est impossible ou dangereux, il ne doit pas être forcé.</span></li>
         </ul>
       </section>
 
@@ -455,9 +478,9 @@
           <tr><td>Mobilité</td><td>Objectif : mobilité marine, à étudier</td><td>Mobilité maritime</td><td>Habitat fixe</td></tr>
           <tr><td>Autonomie</td><td>Objectif : réduire les dépendances, à quantifier</td><td>Dépend des systèmes et infrastructures</td><td>Dépend des réseaux disponibles</td></tr>
           <tr><td>Impact écologique</td><td>Objectif : limiter les rejets, à démontrer</td><td>Impact variable selon le modèle</td><td>Impact variable selon le modèle</td></tr>
-          <tr><td>Expérience</td><td><span class="ok">✔</span> Immersive et inédite</td><td><span class="ok">✔</span> Surface</td><td><span class="ok">✔</span> Terrestre</td></tr>
-          <tr><td>Confidentialité</td><td><span class="ok">✔</span> Maximale (immersion)</td><td><span class="no">✘</span> Limitée</td><td><span class="no">✘</span> Faible</td></tr>
-          <tr><td>Sécurité</td><td>Exigences à définir et valider</td><td><span class="no">✘</span> Vulnérable</td><td><span class="no">✘</span> Exposée</td></tr>
+          <tr><td>Expérience</td><td>Objectif : expérience immersive en milieu marin</td><td>Expérience maritime</td><td>Expérience terrestre</td></tr>
+          <tr><td>Confidentialité</td><td>Dispositifs et niveau de confidentialité à définir</td><td>Dépend de la conception et des usages</td><td>Dépend de la conception et des usages</td></tr>
+          <tr><td>Sécurité</td><td>Exigences et performances à étudier</td><td>Dépend du modèle et de son exploitation</td><td>Dépend du bâtiment et de son environnement</td></tr>
         </table>
       </section>
 
@@ -579,27 +602,27 @@
             <textarea id="cf-message" name="message" placeholder="Écrivez votre question, votre idée ou votre message…" required></textarea>
           </div>
           <button type="submit">Envoyer</button>
-          <p class="form-notice" id="form-status" role="status">Votre message sera transmis à l’équipe ODYSSÉE. Merci pour votre intérêt !</p>
+          <p class="form-notice" id="form-status" role="status" aria-live="polite">Votre message sera transmis à l’équipe ODYSSÉE. Merci pour votre intérêt !</p>
         </form>
         <script>
           const formulaire = document.getElementById("contact-form");
           const statut = document.getElementById("form-status");
           const bouton = formulaire.querySelector('button[type="submit"]');
-        
+
           formulaire.addEventListener("submit", async function (e) {
             e.preventDefault();
-        
+
             if (!formulaire.reportValidity()) {
               return;
             }
-        
+
             const nom = document.getElementById("cf-name").value.trim();
             const email = document.getElementById("cf-email").value.trim();
             const roleSelect = document.getElementById("cf-role");
             const objet = roleSelect.options[roleSelect.selectedIndex].text;
             const sujet = document.getElementById("cf-subject").value.trim();
             const message = document.getElementById("cf-message").value.trim();
-        
+
             const messageComplet = [
               "Objet de la demande : " + objet,
               sujet ? "Sujet : " + sujet : "",
@@ -607,12 +630,12 @@
               "Message :",
               message
             ].filter(Boolean).join("\n");
-        
+
             bouton.disabled = true;
             statut.textContent = "Envoi de votre message en cours…";
             statut.style.borderColor = "";
             statut.style.color = "";
-            
+
             try {
               const reponse = await fetch(
                 "https://odyssee-contact.onrender.com/contact",
@@ -628,27 +651,27 @@
                   })
                 }
               );
-        
+
               const resultat = await reponse.json().catch(() => ({}));
-        
+
               if (!reponse.ok) {
                 throw new Error(
                   resultat.erreur || "L'envoi a échoué. Veuillez réessayer."
                 );
               }
-        
+
               statut.textContent =
                 "Votre message a bien été envoyé à l'équipe d'ODYSSÉE. Merci pour votre intérêt !";
               statut.style.borderColor = "#4ade80";
               statut.style.color = "#dce8f5";
               formulaire.reset();
-        
+
             } catch (erreur) {
               statut.textContent =
                 "Votre message n'a pas pu être envoyé. Vérifiez votre connexion et réessayez. Si le problème persiste, vous pouvez écrire à contact.odyssee.projet@gmail.com.";
               statut.style.borderColor = "#e06c75";
               statut.style.color = "#f5c6cb";
-        
+
             } finally {
               bouton.disabled = false;
               statut.setAttribute("tabindex", "-1");
