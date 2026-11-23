@@ -74,6 +74,7 @@
       .button-primary { color:#04121f; background:linear-gradient(90deg,var(--blue),var(--cyan)); }
       .button-secondary { color:var(--text); border:1px solid var(--line); background:rgba(14,30,53,.65); }
       .status-note { max-width:900px; margin:28px auto 0; padding:14px 18px; text-align:left; border:1px solid #735a2c; border-radius:12px; background:rgba(255,209,102,.07); color:#e8d7ae; font-size:.9rem; }
+      .status-note a { color:var(--cyan); }
       .eyebrow { color:var(--cyan); text-transform:uppercase; letter-spacing:.14em; font-size:.75rem; font-weight:700; }
       .section-actions { margin-top:20px; }
       .form-notice { padding:12px 14px; border-radius:10px; background:rgba(255,209,102,.08); border:1px solid #735a2c; color:#e8d7ae; font-size:.86rem; }
@@ -86,6 +87,7 @@
         padding-left: 14px;
         margin: 0 0 10px;
       }
+      h2.sub-h { font-size: 1.2rem; margin-top: 34px; }
       .lead { color: var(--muted); margin: 0 0 24px; max-width: 760px; }
       .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
       .card {
@@ -96,6 +98,7 @@
       }
       .card h3 { margin: 0 0 8px; color: var(--blue); font-size: 1.05rem; }
       .card p { margin: 0; color: var(--muted); font-size: .93rem; }
+      .card p + p { margin-top: 10px; }
       .models { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
       .model {
         background: linear-gradient(180deg, var(--panel), var(--bg-soft));
@@ -243,6 +246,35 @@
         color: #5f7a99;
         font-size: .85rem;
       }
+
+      /* --- Nouveaux : bloc « état réel » --- */
+      .lvl-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+      .lvl {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 22px;
+        position: relative;
+        overflow: hidden;
+      }
+      .lvl::before {
+        content: "";
+        position: absolute; inset: 0 0 auto 0; height: 3px;
+        background: var(--accent, var(--blue));
+      }
+      .lvl .tag { color: var(--accent, var(--blue)); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; }
+      .lvl h3 { margin: 4px 0 8px; color: #fff; font-size: 1.05rem; }
+      .lvl p { margin: 0 0 10px; color: var(--muted); font-size: .92rem; }
+      .lvl ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: .92rem; }
+      .lvl li { margin-bottom: 6px; }
+
+      /* --- Pastilles de niveau (réutilisables) --- */
+      .pill { display:inline-block; padding:2px 10px; border-radius:999px; font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; font-weight:700; margin-right:8px; }
+      .pill.dev { color:#052012; background:var(--green); }
+      .pill.sim { color:#33200a; background:var(--orange); }
+      .pill.etude { color:#04121f; background:var(--blue); }
+
+
       @media (max-width: 640px) {
         header { padding-top: 40px; }
         .fin { flex-direction: column; align-items: flex-start; }
@@ -255,6 +287,7 @@
     </style>
   </head>
   <body>
+
     <header id="accueil">
       <p class="eyebrow">PROJET ODYSSÉE · Acte I — De la Terre à la Mer</p>
       <h1>ODYS<span>SEE</span></h1>
@@ -269,20 +302,22 @@
       </div>
       <div class="hero-actions">
         <a class="button-link button-primary" href="#contact">Poser une question</a>
+        <a class="button-link button-secondary" href="#etat-reel">État réel du projet</a>
         <a class="button-link button-secondary" href="#partenaires">Proposer une collaboration</a>
-                <a class="button-link button-secondary" href="#avancement">Découvrir l’avancement</a>
+        <a class="button-link button-secondary" href="#avancement">Découvrir l’avancement</a>
       </div>
       <div class="status-note">
-        <strong>Où en est ODYSSÉE ?</strong> Le logiciel est en cours de développement. La MSÉ est actuellement un concept : aucune structure physique n’a été construite et sa faisabilité, sa sécurité, ses performances et son cadre réglementaire restent à étudier avec des spécialistes.
+        <strong>Où en est ODYSSÉE ?</strong> Deux prototypes logiciels fonctionnent sur mon ordinateur : une IA conversationnelle (BLUE) et une simulation interactive de l’habitat SENTINEL. Les mesures et les équipements de cet habitat y sont simulés. La MSÉ reste un concept : aucune structure physique n’a été construite, et sa faisabilité, sa sécurité, ses performances et son cadre réglementaire restent à étudier avec des spécialistes. <a href="#etat-reel">Voir le détail</a>.
       </div>
     </header>
     <nav class="topnav" aria-label="Navigation principale">
       <a href="#vision">La vision</a>
       <a href="#concept">Le concept MSÉ</a>
-      <a href="#logiciel">Le logiciel</a>
       <a href="#blue">BLUE · L’IA centrale</a>
       <a href="#bvp">BVP · Baies virtuelles</a>
+      <a href="#etat-reel">État réel</a>
       <a href="#avancement">Avancement</a>
+      <a href="#perspectives">Perspectives</a>
       <a href="#partenaires">Collaborer</a>
       <a href="#contact">Poser une question</a>
     </nav>
@@ -295,20 +330,12 @@
         </p>
         <div class="card" id="logiciel" style="max-width: 860px;">
           <h3>🧪 Le logiciel : première étape concrète</h3>
-          <p>ODYSSÉE comprend un <strong style="color:#dce8f5;">prototype logiciel</strong> développé avec Python et Streamlit. Il explore des parcours d’interaction autour d’une IA nommée BLUE, de ses différentes facettes fonctionnelles, d’interfaces vocales et de procédures simulées. Il s’agit d’une seule intelligence centrale en cours de développement, et non de plusieurs IA indépendantes. Cette maquette ne démontre pas, à elle seule, la sécurité ni la faisabilité de l’habitat physique.</p>
+          <p>ODYSSÉE comprend deux <strong style="color:#dce8f5;">prototypes logiciels</strong> en Python : une IA conversationnelle nommée BLUE, avec ses différentes facettes fonctionnelles et des interfaces vocales, et une simulation interactive de l’habitat SENTINEL, avec des procédures simulées et deux visites guidées. Les interfaces s’appuient notamment sur Streamlit. Il s’agit d’une seule intelligence centrale en cours de développement, et non de plusieurs IA indépendantes. Ces prototypes ne démontrent, ni à eux seuls ni ensemble, la sécurité ou la faisabilité de l’habitat physique.</p>
         </div>
         <div class="grid3" style="margin-top:18px;">
           <div class="card">
             <h3>🏗️ Phase 1 — Terre</h3>
             <p>Étudier le concept, préciser les besoins et développer le logiciel. La structure, la flottabilité, le pilotage réel et l’accessibilité devront faire l’objet d’études et de validations spécifiques.</p>
-          </div>
-          <div class="card">
-            <h3>🌊 Stratégie d'expansion — Blue City</h3>
-            <p>Vision à long terme : explorer la possibilité d’unités modulaires et d’infrastructures partagées. Cette perspective dépendra des résultats des études préalables.</p>
-          </div>
-          <div class="card">
-            <h3>🚀 Phase 2 — L'ultime frontière</h3>
-            <p>Une perspective exploratoire à long terme, qui ne fait pas partie des objectifs techniques immédiats.</p>
           </div>
         </div>
       </section>
@@ -316,6 +343,9 @@
       <section id="concept">
         <h2>Quatre configurations conceptuelles</h2>
         <p class="lead">Guardian, Voyager, Sentinel et Apex représentent des pistes de conception. Leur pertinence, leurs limites et leur faisabilité restent à évaluer ; aucune capacité de protection n’est garantie à ce stade.</p>
+        <p class="form-notice" style="margin-bottom:18px;">
+          Seul le modèle SENTINEL est représenté dans les prototypes logiciels. SENTINEL désigne à la fois l’habitat simulé et sa configuration de référence ; les trois autres configurations (Guardian, Voyager et Apex) restent à l’étude.
+        </p>
         <div class="models">
           <div class="model" style="--accent: #3aa0ff;">
             <h3>MSÉ Guardian</h3>
@@ -368,57 +398,95 @@
         <div class="grid3">
           <div class="card">
             <h3>Qui est BLUE ?</h3>
-            <p>BLUE est l’intelligence artificielle développée dans le cadre du projet ODYSSÉE. Elle est envisagée comme le cœur intelligent de la structure, avec pour objectif de coordonner ses différentes fonctions et d’interagir avec son environnement et ses occupants.</p>
+            <p>BLUE est l’intelligence artificielle développée dans le cadre du projet ODYSSÉE. Elle est envisagée comme le cœur intelligent de la structure, avec pour objectif de coordonner ses différentes fonctions et d’interagir avec ses occupants. Dans les prototypes, elle dialogue avec l’utilisateur et orchestre des scénarios simulés.</p>
           </div>
           <div class="card">
             <h3>Une intelligence, plusieurs rôles</h3>
-            <p>Les personas présentées ne sont pas plusieurs IA indépendantes : elles correspondent à des rôles fonctionnels complémentaires d’une même intelligence centrale. Le SAOP (Système d’Opérations Autonomes et de Pilotage) est le système central envisagé pour l’habitat. Il centralise les fonctions et permet à BLUE d’y accéder pour analyser les situations, prendre des décisions dans son domaine d’autorité et coordonner les opérations. Il doit également conserver un socle minimal de sécurité indépendant de BLUE, notamment en cas de défaillance de celle-ci. Cette architecture reste à concevoir et à valider avec des spécialistes.</p>
+            <p>Les rôles présentés ne sont pas plusieurs IA indépendantes : ce sont des rôles fonctionnels complémentaires d’une même intelligence centrale. Le SAOP (Système d’Opérations Autonomes et de Pilotage) est le système central envisagé pour l’habitat. Dans les prototypes, c’est une architecture logicielle de gestion des profils, des autorisations par rôle et par zone et de supervision de démonstration. Un socle de sécurité indépendant de BLUE reste à concevoir, étudier et valider ; il n’existe pas à ce stade.</p>
           </div>
           <div class="card">
             <h3>Un premier terrain d’exploration : la MSÉ</h3>
             <p>La Maison Sous-Marine Écologique est le premier concept de structure exploré dans ODYSSÉE. Elle permet d’étudier comment les fonctions envisagées de BLUE pourraient s’intégrer à un habitat destiné au milieu marin.</p>
           </div>
         </div>
-        <p class="form-notice" style="margin-top:16px;">Les personas présentées ci-dessous présentent des rôles visés dans le concept. Ils ne constituent pas des systèmes certifiés de commande d’un véhicule réel et ne démontrent pas la sécurité ou la faisabilité de l’habitat physique.</p>
+        <p class="form-notice" style="margin-top:16px;">Les rôles présentés ci-dessous sont des rôles visés dans le concept. Ils ne constituent pas des systèmes certifiés de commande d’un véhicule réel et ne démontrent ni la sécurité ni la faisabilité de l’habitat physique.</p>
+
+        <h2 class="sub-h">BLUE et ses facettes principales</h2>
+        <p class="lead">Les facettes principales sont les rôles fonctionnels nécessaires à l’organisation générale de l’habitat.</p>
         <div class="ia-list">
           <div class="ia" style="--accent: #3aa0ff;">
             <h3>BLUE</h3>
-            <div class="role">Intelligence centrale de l’habitat</div>
-            <p>Intelligence centrale envisagée pour analyser les situations, prendre des décisions dans son domaine d’autorité, coordonner les Personae et transmettre des instructions au SAOP. Les commandes critiques doivent rester encadrées par des mécanismes de sécurité indépendants et des procédures validées. BLUE et le SAOP sont encore en développement conceptuel et logiciel ; leur capacité à piloter un habitat réel n’est pas démontrée.</p>
+            <div class="role">Intelligence centrale</div>
+            <p>Intelligence centrale unique de l’habitat envisagé. Dans les prototypes, elle dialogue avec l’utilisateur, coordonne ses rôles fonctionnels et déclenche des scénarios simulés ; elle ne commande aucun équipement réel. Pour un habitat réel, les commandes critiques devraient rester encadrées par des mécanismes de sécurité indépendants et des procédures validées, à concevoir. Sa capacité à piloter un habitat réel n’est pas démontrée.</p>
             <div class="voice">Voix : fr-FR Denise</div>
           </div>
-          <div class="ia" style="--accent: #ff9a3c;">
-            <h3>BLUE — Persona ORION</h3>
-            <div class="role">Propulsion &amp; navigation</div>
-            <p>Rôle conceptuel associé à la navigation et aux procédures de déplacement, à préciser avec des spécialistes.</p>
-            <div class="voice">Voix : fr-FR Henri</div>
-          </div>
-          <div class="ia" style="--accent: #4ade80;">
-            <h3>BLUE — Persona AURORA</h3>
-            <div class="role">Coordination technique &amp; analyse</div>
-            <p>Facette spécialisée de BLUE chargée du domaine technique et de son suivi administratif. Elle assure la gestion des signalements, des dossiers d'incidents, l'analyse des informations techniques, la planification et le suivi des interventions ainsi que la rédaction des rapports techniques. Elle travaille en coordination avec TECH et BLUE.</p>
-            <div class="voice">Voix : fr-CH Ariane</div>
-          </div>
-          <div class="ia" style="--accent: #e05252;">
-            <h3>BLUE — Persona NOVA</h3>
-            <div class="role">Sécurité &amp; surveillance des protections</div>
-            <p>Facette spécialisée de BLUE consacrée à la surveillance des secteurs protégés, au contrôle des conditions de sécurité et au suivi des procédures de protection. Elle contribue à détecter les situations anormales et à signaler les risques. Elle ne remplace ni les dispositifs matériels indépendants, ni les systèmes de sécurité certifiés, ni les procédures humaines validées.</p>
-            <div class="voice">Voix : "fr-CA-SylvieNeural",</div>
-          </div>
-          <div class="ia">
-            <h3>BLUE — Persona ALFRED</h3>
-            <div class="role">Accueil &amp; vie à bord</div>
-            <p>Accueil des résidents, présentation des zones, filtrage des zones
-            interdites aux enfants.</p>
+          <div class="ia" style="--accent: #ffd166;">
+            <h3>BLUE — ALFRED</h3>
+            <div class="role">Accueil &amp; visites guidées</div>
+            <p>Accueil et accompagnement des visiteurs, présentation de l’habitat, de ses espaces et de ses équipements.</p>
             <div class="voice">Voix : fr-CA Antoine</div>
           </div>
-          <div class="ia">
-            <h3>BLUE — Persona CLARA</h3>
-            <div class="role">Administration humaine &amp; accompagnement à bord</div>
-            <p>Facette spécialisée de BLUE chargée du domaine humain et administratif de l'habitat. Elle assure la gestion des profils des résidents, des identités, des dossiers individuels, des archives, des demandes quotidiennes et du suivi administratif. Elle contribue également à l'accompagnement des occupants et à leur bien-être, dans les limites des fonctions développées et validées.</p>
+          <div class="ia" style="--accent: #f58fb4;">
+            <h3>BLUE — CLARA</h3>
+            <div class="role">Vie quotidienne &amp; jardin</div>
+            <p>Assistance à la vie quotidienne et accompagnement des résidents (hygiène, bien-être), ainsi que suivi du jardin hydroponique, avec l’appui d’auxiliaires spécialisés : la Botaniste (jardin), Maître Coq (cuisine) et la Ménagère (réserves alimentaires).</p>
+            <div class="voice">Voix : fr-CH Ariane</div>
+          </div>
+          <div class="ia" style="--accent: #4ade80;">
+            <h3>BLUE — GAIA</h3>
+            <div class="role">Environnement &amp; écosystèmes</div>
+            <p>Environnement, botanique, eau et processus biologiques : confort thermique et visuel, assainissement, équilibre du jardin et des cycles écologiques.</p>
+            <div class="voice">Voix : fr-FR Vivienne</div>
+          </div>
+          <div class="ia" style="--accent: #e05252;">
+            <h3>BLUE — NOVA</h3>
+            <div class="role">Sécurité &amp; contrôle des accès</div>
+            <p>Sécurité des personnes et contrôle des accès dans l’habitat simulé. Elle ne remplace ni les dispositifs matériels indépendants, ni les systèmes de sécurité certifiés, ni les procédures humaines validées.</p>
+            <div class="voice">Voix : fr-CA Sylvie</div>
+          </div>
+          <div class="ia" style="--accent: #ff9a3c;">
+            <h3>BLUE — ORION</h3>
+            <div class="role">Navigation, propulsion &amp; amarrage</div>
+            <p>Rôle conceptuel associé à la navigation, à la propulsion et à l’amarrage, à préciser avec des spécialistes. Dans les prototypes, ces états sont simulés.</p>
+            <div class="voice">Voix : fr-FR Henri</div>
+          </div>
+          <div class="ia" style="--accent: #47e0d0;">
+            <h3>BLUE — AURORA</h3>
+            <div class="role">Diagnostics &amp; organisation technique</div>
+            <p>Diagnostics, supervision technique des équipements et organisation des interventions, avec l’appui d’un auxiliaire spécialisé, TECH.</p>
             <div class="voice">Voix : fr-CH Ariane</div>
           </div>
         </div>
+
+        <h2 class="sub-h">Les auxiliaires spécialisés</h2>
+        <p class="lead">Certaines fonctions sont complétées par des auxiliaires spécialisés : des personnages dotés d’un nom, d’une voix et d’une manière de s’exprimer. Associés à une facette principale, ils ne constituent pas des intelligences artificielles indépendantes, et leur statut pourra évoluer.</p>
+        <div class="ia-list">
+          <div class="ia" style="--accent: #f58fb4;">
+            <h3>La Botaniste</h3>
+            <div class="role">Auxiliaire de CLARA</div>
+            <p>Suivi biochimique et analyse des cultures du jardin hydroponique.</p>
+            <div class="voice">Voix : fr-FR Vivienne (identique à GAIA)</div>
+          </div>
+          <div class="ia" style="--accent: #f58fb4;">
+            <h3>Maître Coq</h3>
+            <div class="role">Auxiliaire de CLARA</div>
+            <p>Chef de bord : préparation des repas et qualité de l’alimentation des occupants.</p>
+            <div class="voice">Voix : fr-CH Fabrice</div>
+          </div>
+          <div class="ia" style="--accent: #f58fb4;">
+            <h3>La Ménagère</h3>
+            <div class="role">Auxiliaire de CLARA</div>
+            <p>Gestion des réserves alimentaires : organisation des provisions et suivi des quantités.</p>
+            <div class="voice">Voix : fr-FR Denise (identique à BLUE)</div>
+          </div>
+          <div class="ia" style="--accent: #47e0d0;">
+            <h3>TECH</h3>
+            <div class="role">Auxiliaire d’AURORA</div>
+            <p>Interventions techniques, essais et drones de maintenance.</p>
+            <div class="voice">Voix : fr-CA Antoine (identique à ALFRED)</div>
+          </div>
+        </div>
+        <p class="form-note" style="margin-top:14px;">Le nombre de voix françaises gratuites étant limité, certaines voix de synthèse sont partagées : ALFRED et TECH (Antoine), CLARA et AURORA (Ariane), GAIA et la Botaniste (Vivienne), BLUE et la Ménagère (Denise).</p>
       </section>
 
       <section id="bvp">
@@ -456,11 +524,11 @@
           <li><b>⬆️ Remontée d'urgence autonome</b><br />
           <span>Définir et vérifier un scénario de remontée d’urgence, y compris en cas de perte d’énergie, de panne mécanique ou de conditions marines défavorables.</span></li>
           <li><b>🧠 Continuité de sécurité en cas de défaillance de BLUE</b><br />
-          <span>Le concept prévoit que le SAOP conserve des fonctions minimales de sécurité indépendantes de BLUE. Un retour vers le port sécurisé le plus proche pourrait être envisagé si les capacités techniques et les procédures validées le permettent. Si ce retour est impossible ou dangereux, une procédure de sécurité adaptée devra s’appliquer. Cette capacité reste à concevoir et à valider.</span></li>
+          <span>Le principe retenu est qu’un socle de sécurité indépendant de BLUE devra exister. Il reste à concevoir, à étudier et à valider ; le SAOP des prototypes n’en est pas un. Un retour vers un port sûr pourrait être envisagé si les capacités techniques et les procédures validées le permettent. Si ce retour est impossible ou dangereux, une procédure de sécurité adaptée devra s’appliquer.</span></li>
           <li><b>🚁 Zone d'extraction héliportée</b><br />
           <span>Étudier les voies d’évacuation, les moyens de sauvetage et les scénarios d’urgence réalistes avec les organismes compétents.</span></li>
           <li><b>🔐 Protection de BLUE et du SAOP</b><br />
-          <span>Étudier les mécanismes permettant de prévenir les accès non autorisés, la copie technologique et les tentatives de prise de contrôle, tout en préservant les fonctions vitales et la sécurité des occupants. En cas de menace, l’objectif est d’alerter la base ODYSSÉE et d’appliquer les procédures de sécurité validées. Un retour vers un port sécurisé ne doit être engagé que s’il est jugé sûr et autorisé par ces procédures. Si le retour est impossible ou dangereux, il ne doit pas être forcé.</span></li>
+          <span>Étudier les mécanismes permettant de prévenir les accès non autorisés, la copie technologique et les tentatives de prise de contrôle, tout en préservant les fonctions vitales et la sécurité des occupants. En cas de menace, l’objectif serait d’alerter un centre de supervision, à définir, et d’appliquer les procédures de sécurité validées. Un retour vers un port sûr ne doit être engagé que s’il est jugé sûr et autorisé par ces procédures ; s’il est impossible ou dangereux, il ne doit pas être forcé. Dans les prototypes, l’authentification est une démonstration, avec des modes de contournement destinés au développement : leur désactivation et la révision de l’exposition des serveurs devront précéder toute mise en réseau ou utilisation réelle.</span></li>
         </ul>
       </section>
 
@@ -468,26 +536,12 @@
         <h2>Inclusion &amp; accessibilité</h2>
         <ul class="feats">
           <li><b>🎙️ Interface « zéro effort »</b><br />
-          <span>Explorer des interfaces vocales complémentaires aux commandes physiques accessibles, sans dépendre d’un seul mode d’interaction.</span></li>
+          <span>Explorer des interfaces vocales complémentaires aux commandes physiques accessibles, sans dépendre d’un seul mode d’interaction. Les composants vocaux du prototype utilisent des services en ligne ; une version autonome, adaptée à un fonctionnement sans connexion Internet, reste à concevoir.</span></li>
           <li><b>♿ Hospitalité pour tous</b><br />
           <span>Les objectifs d’accessibilité devront être examinés avec des spécialistes et confrontés aux contraintes de sécurité, d’espace, d’évacuation et aux normes applicables.</span></li>
-          <li><b>⌚ Bracelets fast-track biométriques</b><br />
-          <span>Le prototype logiciel explore des profils et des parcours d’accès. Toute mise en œuvre réelle devra traiter la protection des données, la fiabilité et les solutions de secours.</span></li>
+          <li><b>⌚ Bracelets d’accès</b><br />
+          <span>Le prototype comprend un registre logiciel de bracelets (profils, droits, données de démonstration). Aucun bracelet physique n’a été réalisé ni raccordé au système. Toute mise en œuvre réelle devra traiter la protection des données, la fiabilité et les solutions de secours.</span></li>
         </ul>
-      </section>
-
-      <section>
-        <h2>Les objectifs que le projet souhaite explorer</h2>
-        <p class="lead">Ce tableau exprime des intentions de conception, pas des avantages mesurés ni des performances comparées à des produits existants.</p>
-        <table class="cmp">
-          <tr><th>Critère</th><th>Maison Sous-Marine (MSÉ)</th><th>Yacht de luxe</th><th>Villa littorale</th></tr>
-          <tr><td>Mobilité</td><td>Objectif : mobilité marine, à étudier</td><td>Mobilité maritime</td><td>Habitat fixe</td></tr>
-          <tr><td>Autonomie</td><td>Objectif : réduire les dépendances, à quantifier</td><td>Dépend des systèmes et infrastructures</td><td>Dépend des réseaux disponibles</td></tr>
-          <tr><td>Impact écologique</td><td>Objectif : limiter les rejets, à démontrer</td><td>Impact variable selon le modèle</td><td>Impact variable selon le modèle</td></tr>
-          <tr><td>Expérience</td><td>Objectif : expérience immersive en milieu marin</td><td>Expérience maritime</td><td>Expérience terrestre</td></tr>
-          <tr><td>Confidentialité</td><td>Dispositifs et niveau de confidentialité à définir</td><td>Dépend de la conception et des usages</td><td>Dépend de la conception et des usages</td></tr>
-          <tr><td>Sécurité</td><td>Exigences et performances à étudier</td><td>Dépend du modèle et de son exploitation</td><td>Dépend du bâtiment et de son environnement</td></tr>
-        </table>
       </section>
 
       <section>
@@ -508,9 +562,51 @@
         </div>
       </section>
 
+      <section id="etat-reel">
+        <h2>Où en est ODYSSÉE, concrètement ?</h2>
+        <p class="lead">
+          Mise à jour : 23 novembre 2026. Trois niveaux sont distingués, pour ne pas confondre ce qui est développé dans les prototypes, ce qui y est simulé et ce qui reste à étudier pour un habitat réel.
+        </p>
+        <div class="lvl-grid">
+          <div class="lvl" style="--accent: #4ade80;">
+            <div class="tag">Développé dans les prototypes</div>
+            <h3>Deux prototypes logiciels</h3>
+            <p>BLUE_PACKAGE et HABITAT : deux prototypes Python développés sur mon ordinateur. Ils comprennent notamment :</p>
+            <ul>
+              <li>une intelligence conversationnelle locale, fondée sur Llama 3.2 3B via Ollama, avec plusieurs rôles fonctionnels ;</li>
+              <li>une architecture vocale associant reconnaissance et synthèse de la parole, par des services en ligne (Google Speech Recognition et Microsoft Edge TTS) ;</li>
+              <li>une gestion logicielle des profils et des droits d’accès ;</li>
+              <li>un lien entre les deux prototypes : une commande vocale adressée à BLUE lance l’habitat simulé ;</li>
+              <li>deux parcours de visite guidée de l’habitat simulé : technicien et famille.</li>
+            </ul>
+          </div>
+          <div class="lvl" style="--accent: #ff9a3c;">
+            <div class="tag">Simulé dans les prototypes</div>
+            <h3>Les équipements et les mesures</h3>
+            <p>Production énergétique, pression, niveau d’eau, systèmes vitaux, sas, navigation et bracelets sont simulés. Les valeurs présentées sont programmées, générées aléatoirement ou déduites d’états logiciels. Aucun capteur ni actionneur de l’habitat n’est raccordé.</p>
+            <p>L’authentification (reconnaissance faciale, reconnaissance du nom prononcé et code utilisateur) est programmée à titre de démonstration et reste à tester. Elle comporte des modes de contournement destinés au développement.</p>
+            <p>Les composants vocaux utilisent des services en ligne. Une version autonome, adaptée à un fonctionnement sans connexion Internet, reste à concevoir.</p>
+          </div>
+          <div class="lvl" style="--accent: #3aa0ff;">
+            <div class="tag">À étudier et à valider pour SENTINEL</div>
+            <h3>La réalisation physique</h3>
+            <p>La réalisation physique de l’habitat reste à étudier : structure, résistance à la pression, flottabilité, production et gestion de l’énergie, sécurité des occupants, systèmes de secours et réglementation.</p>
+            <p>Aucune étude de faisabilité complète n’a encore été réalisée par des spécialistes.</p>
+          </div>
+        </div>
+        <p class="form-notice" style="margin-top:16px;">
+          BLUE ne commande aucun équipement réel. Les réponses d’un petit modèle de langage peuvent être inexactes ; les captures, états et valeurs affichés par les prototypes ne doivent pas être lus comme des mesures ou des performances démontrées.
+        </p>
+      </section>
+
       <section id="avancement">
         <h2>Feuille de route : logiciel, études, prototype physique</h2>
-                <div class="timeline">
+        <p class="lead">
+          <span class="pill dev">Développé</span> dans les prototypes logiciels ·
+          <span class="pill sim">Simulé</span> sans équipement physique ·
+          <span class="pill etude">À étudier</span> pour un habitat réel.
+        </p>
+        <div class="timeline">
           <div class="step">
             <h3>Moteur vocal v3 consolidé</h3>
             <p>Travail de développement sur les messages structurés, les voix distinctes par facette et la lecture audio avec cache. Validé par des tests dans un environnement documenté.</p>
@@ -518,7 +614,7 @@
           </div>
           <div class="step">
             <h3>Parcours ODYSSEE nominal complet</h3>
-            <p>Parcours logiciel simulé autour de l’éveil, de l’identification vocale et de la prise de possession de l’habitat, de bout en bout sans erreur. Aucun équipement physique n’est intégré ni validé.</p>
+            <p>Parcours logiciel simulé autour de l’éveil, de l’identification et de la prise de possession de l’habitat, de bout en bout sans erreur. Aucun équipement physique n’est intégré ni validé.</p>
             <div class="date">Prototype logiciel — atteint · octobre 2026</div>
           </div>
           <div class="step">
@@ -526,16 +622,36 @@
             <p>L’accompagnement vocal est opérationnel sur l’ensemble du parcours logiciel : chaque facette de BLUE s’exprime avec sa voix propre, l’écrit restant intact. Comportement vérifié par des tests.</p>
             <div class="date">Développement logiciel — validé · octobre 2026</div>
           </div>
+          <div class="step">
+            <h3>Lien vocal BLUE → HABITAT</h3>
+            <p>Une commande vocale adressée à BLUE lance le prototype HABITAT et conduit jusqu’à l’arrivée du technicien dans le bureau, où il découvre BLUE pour la première fois. Parcours simulé : aucun équipement physique n’est raccordé.</p>
+            <div class="date">Prototype logiciel — atteint · novembre 2026</div>
+          </div>
+          <div class="step">
+            <h3>Visites guidées technicien et famille</h3>
+            <p>Deux parcours de visite de l’habitat simulé fonctionnent de bout en bout. Ils s’appuient aujourd’hui sur des textes préécrits ; un registre de dialogues plus complet est en cours de constitution.</p>
+            <div class="date">Prototype logiciel — atteint</div>
+          </div>
           <div class="step now">
-            <h3>Sécurisation des innovations logicielles</h3>
-            <p>Préparation de protections juridiques pour les mécanismes logiciels originaux du projet (recherches documentaires, dossiers préparatoires). Aucune protection n’est acquise avant l’aboutissement des procédures en cours.</p>
-            <div class="date">En cours · 2026</div>
+            <h3>Recherches d’antériorité et protection</h3>
+            <p>Des recherches d’antériorité ont été menées dans des bases de brevets gratuites (INPI, Espacenet, Google Patents) sur trois inventions liées au projet. Elles n’ont pas identifié, à ce stade, de document réunissant l’ensemble des caractéristiques principales de ces inventions. Ces recherches ne sont pas exhaustives et ne constituent ni un avis juridique, ni un dépôt, ni une protection : aucune protection n’est acquise. Le détail de ces inventions n’est pas publié à ce stade.</p>
+            <div class="date">Recherches terminées · octobre 2026 · dépôts en préparation</div>
+          </div>
+          <div class="step now">
+            <h3>Chantier quai — Actes 1 &amp; 2</h3>
+            <p>Développer progressivement les parcours de démonstration de SENTINEL : accueil des résidents, installation des bracelets, accès aux espaces de vie et visite guidée de l’habitat. Enrichir les visites par des interactions adaptées aux différents publics (résidents, techniciens et visiteurs). Poursuivre l’intégration des transitions entre les espaces et les étapes du scénario, tout en documentant les fonctions opérationnelles, leurs limites et les résultats des tests.</p>
+            <div class="date">En cours</div>
           </div>
           <div class="step next">
-          <h3>Chantier quai — Actes 1 &amp; 2</h3>
-          <p>Développer progressivement les parcours de démonstration de SENTINEL : accueil des résidents, installation des bracelets, accès aux espaces de vie et visite guidée de l’habitat. Enrichir les visites par des interactions adaptées aux différents publics (résidents, techniciens et visiteurs). Poursuivre l’intégration des transitions entre les espaces et les étapes du scénario, tout en documentant les fonctions opérationnelles, leurs limites et les résultats des tests.</p>
-          <div class="date">En cours</div>
-        </div>
+            <h3>Interactions conversationnelles de BLUE</h3>
+            <p>
+              Développer progressivement la capacité de BLUE à répondre aux questions et aux demandes des interlocuteurs, pendant les visites guidées comme en dehors de celles-ci.
+              Les dialogues préécrits conserveront leur rôle pour structurer les parcours et maîtriser les informations présentées.
+              À terme, certaines réponses fixes pourront laisser place à des échanges dynamiques, dans le respect des connaissances disponibles, des autorisations et des règles de sécurité.
+              Les textes que j'approuve font foi ; cette approbation ne constitue pas une validation par des spécialistes.
+            </p>
+            <div class="date">À venir</div>
+          </div>
           <div class="step next">
             <h3>Inclusion : bruits &amp; musique</h3>
             <p>Améliorer l’accessibilité des interfaces (ambiances sonores, musique) et tester les interactions dans différentes conditions d’usage.</p>
@@ -547,15 +663,42 @@
             <div class="date">Après une première évaluation de faisabilité</div>
           </div>
         </div>
-        <p class="quote">« Ce que nous apprenons au fond des mers nous emmènera vers les étoiles. »</p>
+      </section>
+
+      <section id="perspectives">
+        <h2>Perspectives à long terme</h2>
+        <p class="lead">Ces perspectives sont exploratoires. Elles ne font pas partie des objectifs techniques immédiats et dépendront des résultats des études préalables.</p>
+        <div class="grid3">
+          <div class="card">
+            <h3>🌊 Stratégie d'expansion — Blue City</h3>
+            <p>Vision à long terme : explorer la possibilité d’unités modulaires et d’infrastructures partagées. Cette perspective dépendra des résultats des études préalables.</p>
+          </div>
+          <div class="card">
+            <h3>🚀 Phase 2 — L'ultime frontière</h3>
+            <p>Une perspective exploratoire à long terme, qui ne fait pas partie des objectifs techniques immédiats.</p>
+          </div>
+        </div>
+
+        <h2 class="sub-h">Les objectifs que le projet souhaite explorer</h2>
+        <p class="lead">Ce tableau exprime des intentions de conception, pas des avantages mesurés ni des performances comparées à des produits existants.</p>
+        <table class="cmp">
+          <tr><th>Critère</th><th>Maison Sous-Marine (MSÉ)</th><th>Yacht de luxe</th><th>Villa littorale</th></tr>
+          <tr><td>Mobilité</td><td>Objectif : mobilité marine, à étudier</td><td>Mobilité maritime</td><td>Habitat fixe</td></tr>
+          <tr><td>Autonomie</td><td>Objectif : réduire les dépendances, à quantifier</td><td>Dépend des systèmes et infrastructures</td><td>Dépend des réseaux disponibles</td></tr>
+          <tr><td>Impact écologique</td><td>Objectif : limiter les rejets, à démontrer</td><td>Impact variable selon le modèle</td><td>Impact variable selon le modèle</td></tr>
+          <tr><td>Expérience</td><td>Objectif : expérience immersive en milieu marin</td><td>Expérience maritime</td><td>Expérience terrestre</td></tr>
+          <tr><td>Confidentialité</td><td>Dispositifs et niveau de confidentialité à définir</td><td>Dépend de la conception et des usages</td><td>Dépend de la conception et des usages</td></tr>
+          <tr><td>Sécurité</td><td>Exigences et performances à étudier</td><td>Dépend du modèle et de son exploitation</td><td>Dépend du bâtiment et de son environnement</td></tr>
+        </table>
+        <p class="quote">« Ce que nous apprenons au fond des mers nous emmènera vers les étoiles. »<br /><span style="font-size:.8rem; font-style:normal; color:var(--muted);">— ODYSSÉE</span></p>
       </section>
 
       <section id="partenaires">
         <h2>Collaborer avec ODYSSÉE</h2>
         <div class="fin">
           <div>
-            <h3>Un projet porté par son fondateur</h3>
-            <p>ODYSSÉE est aujourd’hui porté par son fondateur, qui développe progressivement son architecture logicielle et sa vision d’un habitat marin autonome et résilient.</p>
+            <h3>Un projet porté à titre personnel</h3>
+            <p>ODYSSÉE est aujourd’hui porté par une seule personne. Je développe progressivement son architecture logicielle et ma vision d’un habitat marin autonome et résilient.</p>
           </div>
           <div class="card" style="max-width: 860px;">
             <h3>🤝 Première étape : confronter le concept à la réalité technique</h3>
@@ -571,11 +714,11 @@
           </div>
         </div>
         <p class="lead" style="margin: 24px 0 18px;">
-          Vous êtes spécialiste et souhaitez contribuer à l’étude ? Cette rubrique est là pour les propositions de collaboration. Pour une question générale, une idée ou une simple curiosité sur le projet, vous pouvez également nous écrire ici : aucun profil technique n’est nécessaire.
+          Vous êtes spécialiste et souhaitez contribuer à l’étude ? Cette rubrique est là pour les propositions de collaboration. Pour une question générale, une idée ou une simple curiosité sur le projet, vous pouvez également m’écrire ici : aucun profil technique n’est nécessaire.
         </p>
         <div id="contact"></div>
         <h2 style="margin-bottom:16px;">Une question, une idée ou un message ?</h2>
-        <p class="lead">Vous pouvez simplement poser une question sur ODYSSÉE, BLUE ou la MSÉ. Les champs Nom et E-mail sont facultatifs ; indiquez votre e-mail uniquement si vous souhaitez pouvoir recevoir une réponse.</p>
+        <p class="lead">Vous pouvez simplement poser une question sur ODYSSÉE, BLUE ou la MSÉ. Les champs Nom et E-mail sont facultatifs ; indiquez votre e-mail uniquement si vous souhaitez pouvoir recevoir une réponse. Vous pouvez aussi écrire directement à contact.odyssee.projet@gmail.com.</p>
         <form class="contact" id="contact-form" autocomplete="off">
           <div>
             <label for="cf-name">Nom (facultatif)</label>
@@ -613,7 +756,8 @@
             <textarea id="cf-message" name="message" placeholder="Écrivez votre question, votre idée ou votre message…" required></textarea>
           </div>
           <button type="submit">Envoyer</button>
-          <p class="form-notice" id="form-status" role="status" aria-live="polite">Votre message sera transmis à l’équipe ODYSSÉE. Merci pour votre intérêt !</p>
+          <p class="form-notice" id="form-status" role="status" aria-live="polite">Votre message me sera transmis. Merci pour votre intérêt !</p>
+          <p class="form-note">Les informations saisies ne servent qu’à répondre à votre message. N’y indiquez pas de données sensibles. Pour toute question sur vos données (accès, rectification, suppression), écrivez à contact.odyssee.projet@gmail.com.</p>
         </form>
         <script>
           const formulaire = document.getElementById("contact-form");
@@ -643,7 +787,7 @@
             ].filter(Boolean).join("\n");
 
             bouton.disabled = true;
-            statut.textContent = "Envoi de votre message en cours…";
+            statut.textContent = "Envoi de votre message en cours… cela peut prendre quelques instants.";
             statut.style.borderColor = "";
             statut.style.color = "";
 
@@ -672,7 +816,7 @@
               }
 
               statut.textContent =
-                "Votre message a bien été envoyé à l'équipe d'ODYSSÉE. Merci pour votre intérêt !";
+                "Votre message m’a bien été transmis. Merci pour votre intérêt !";
               statut.style.borderColor = "#4ade80";
               statut.style.color = "#dce8f5";
               formulaire.reset();
@@ -695,7 +839,8 @@
 
     <footer>
       PROJET ODYSSÉE · Acte I — De la Terre à la Mer · MSÉ — Maison Sous-Marine Écologique.<br />
-      État présenté : concept d’habitat et prototype logiciel en développement. Aucune structure physique n’existe à ce stade. Les caractéristiques techniques, les performances, la sécurité et le cadre réglementaire restent à évaluer et à valider par les professionnels compétents.
+      État présenté : concept d’habitat et deux prototypes logiciels en développement, dont les mesures et les équipements sont simulés. Aucune structure physique n’existe à ce stade. Les caractéristiques techniques, les performances, la sécurité et le cadre réglementaire restent à évaluer et à valider par les professionnels compétents.<br />
+      Dernière mise à jour : 23 novembre 2026.
     </footer>
   </body>
 </html>
